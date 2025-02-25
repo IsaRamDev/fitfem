@@ -51,59 +51,66 @@ function Bascula() {
   };
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Balanza de Calorías</h1>
-      <div>
-        {alimentos.map((alimento, index) => (
-          <div key={index} className="mb-4 p-4 border rounded">
-            <input 
-              type="text" 
-              placeholder="Nombre del alimento" 
-              value={alimento.nombre}
-              onChange={(e) => actualizarAlimento(index, "nombre", e.target.value)}
-              className="border p-2 mr-2"
-            />
-            <input 
-              type="number" 
-              placeholder="Proteínas (g)" 
-              value={alimento.proteinas}
-              onChange={(e) => actualizarAlimento(index, "proteinas", parseFloat(e.target.value))}
-              className="border p-2 mr-2"
-            />
-            <input 
-              type="number" 
-              placeholder="Carbohidratos (g)" 
-              value={alimento.carbohidratos}
-              onChange={(e) => actualizarAlimento(index, "carbohidratos", parseFloat(e.target.value))}
-              className="border p-2 mr-2"
-            />
-            <input 
-              type="number" 
-              placeholder="Grasas (g)" 
-              value={alimento.grasas}
-              onChange={(e) => actualizarAlimento(index, "grasas", parseFloat(e.target.value))}
-              className="border p-2 mr-2"
-            />
-            <input 
-              type="number" 
-              placeholder="Vegetales (g)" 
-              value={alimento.vegetales}
-              onChange={(e) => actualizarAlimento(index, "vegetales", parseFloat(e.target.value))}
-              className="border p-2"
-            />
-            <p className="mt-2">Calorías: {alimento.calorias}</p>
-          </div>
-        ))}
-        <button onClick={agregarAlimento} className="bg-green-500 text-white p-2 rounded hover:bg-green-600">
-          + Agregar Alimento
-        </button>
-      </div>
-      <div className="mt-6">
-        <h2 className="text-xl">Total Calorías: {totalCalorias}</h2>
-        <h2 className="text-xl">Calorías Recomendadas: {caloriasRecomendadas.toFixed(2)}</h2>
-        <h2 className="text-xl">
-          Excedente/Deficit: {(totalCalorias - caloriasRecomendadas).toFixed(2)} kcal
-        </h2>
+    <div className="p-6 bg-gray-100 min-h-screen">
+      <div className="max-w-4xl mx-auto bg-white p-6 rounded-xl shadow-md">
+        <h1 className="text-3xl font-bold mb-6 text-center">Balanza de Calorías</h1>
+        <div className="space-y-6">
+          {alimentos.map((alimento, index) => (
+            <div key={index} className="p-4 bg-gray-50 rounded-lg shadow-sm border">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <input 
+                  type="text" 
+                  placeholder="Nombre del alimento" 
+                  value={alimento.nombre}
+                  onChange={(e) => actualizarAlimento(index, "nombre", e.target.value)}
+                  className="border p-2 rounded w-full"
+                />
+                <input 
+                  type="number" 
+                  placeholder="Proteínas (g)" 
+                  value={alimento.proteinas}
+                  onChange={(e) => actualizarAlimento(index, "proteinas", parseFloat(e.target.value))}
+                  className="border p-2 rounded w-full"
+                />
+                <input 
+                  type="number" 
+                  placeholder="Carbohidratos (g)" 
+                  value={alimento.carbohidratos}
+                  onChange={(e) => actualizarAlimento(index, "carbohidratos", parseFloat(e.target.value))}
+                  className="border p-2 rounded w-full"
+                />
+                <input 
+                  type="number" 
+                  placeholder="Grasas (g)" 
+                  value={alimento.grasas}
+                  onChange={(e) => actualizarAlimento(index, "grasas", parseFloat(e.target.value))}
+                  className="border p-2 rounded w-full"
+                />
+                <input 
+                  type="number" 
+                  placeholder="Vegetales (g)" 
+                  value={alimento.vegetales}
+                  onChange={(e) => actualizarAlimento(index, "vegetales", parseFloat(e.target.value))}
+                  className="border p-2 rounded w-full"
+                />
+              </div>
+              <p className="mt-4 text-lg font-semibold">Calorías: {alimento.calorias || 0}</p>
+            </div>
+          ))}
+          <button 
+            onClick={agregarAlimento} 
+            className="bg-green-500 text-white p-2 rounded hover:bg-green-600 w-full">
+            + Agregar Alimento
+          </button>
+        </div>
+        <div className="mt-8 p-6 bg-gray-50 rounded-lg shadow">
+          <h2 className="text-2xl font-semibold">Resumen</h2>
+          <p className="text-xl mt-4">Total Calorías Consumidas: <span className="font-bold">{totalCalorias}</span></p>
+          <p className="text-xl">Calorías Recomendadas: <span className="font-bold">{caloriasRecomendadas.toFixed(2)}</span></p>
+          <p className="text-xl">Excedente/Deficit: <span className={`font-bold ${totalCalorias > caloriasRecomendadas ? 'text-red-500' : 'text-green-500'}`}>
+            {(totalCalorias - caloriasRecomendadas).toFixed(2)} kcal
+          </span></p>
+        </div>
       </div>
     </div>
   );
